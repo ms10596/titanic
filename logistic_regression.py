@@ -1,6 +1,5 @@
 import numpy as np
 from numpy import dot
-import math
 
 
 def mse(x, y, theta):
