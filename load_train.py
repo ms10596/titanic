@@ -18,7 +18,7 @@ def load_train(features):
     return x, y
 
 
-#load specific feature from the training dataset
+# load specific feature from the training dataset
 def load_train_feature(feature_name):
     dataset = pd.read_csv("train.csv")
     m = len(dataset)
@@ -50,7 +50,6 @@ def load_train_feature(feature_name):
         feature = (feature - feature.mean()) / feature.std()
 
     return feature
-
 
 
 if __name__ == '__main__':
