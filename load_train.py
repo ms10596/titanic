@@ -7,14 +7,12 @@ def load_train(features):
     dataset = pd.read_csv("train.csv")
     m = len(dataset)
     features_data = []
+    bias = np.array([np.ones(m, )])
+    features_data.append(bias)
     for i in range(len(features)):
         features_data.append(load_train_feature(features[i]))
 
-    x = np.array([np.ones(m, )], dtype=np.float32)
-    x = np.stack((x[0]))
-    for i in range(len(features_data)):
-        x = np.stack(features_data[i])
-
+    x = np.vstack(features_data)
     y = np.array(dataset['Survived'])
     y = y.reshape((891, 1))
     return x, y
@@ -67,8 +65,7 @@ def load_train_feature(feature_name):
                 feature[i] = 3
 
     # feature scaling
-    if (feature_name != "Sex"):
-        feature = (feature - feature.mean()) / feature.std()
+    feature = (feature - feature.mean()) / feature.std()
 
     return feature
 
