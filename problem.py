@@ -6,8 +6,8 @@ from load_test import load_test_pclass_age
 from calculations import accuracy
 
 if __name__ == '__main__':
-    features = ["Pclass", "Age"]
-    x, y = load_train(features)
+    train_features = ["Pclass", "Sex"]
+    x, y = load_train(train_features)
     theta = np.zeros((x.shape[0], 1))
     theta = logistic_regression(x.transpose(), y, theta, 0.1, 500)
     # print(x)

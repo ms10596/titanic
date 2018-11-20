@@ -12,7 +12,6 @@ def load_test_pclass_age():
     for i in range(len(sex)):
         sex[i] = 1 if sex[i] == 'male' else 0
     x = np.stack((x[0], p_class, sex))
-
     dataset = pd.read_csv("gender_submission.csv")
     y = np.array(dataset['Survived'])
     y = y.reshape((y.size, 1))
@@ -33,7 +32,7 @@ def load_test_sex_pclass_age():
             ages[i] = np.nanmean(ages)
     ages = (ages - ages.mean()) / ages.std()
     x = np.stack((x[0], p_class, sex, ages))
-
+    print(x.shape)
     dataset = pd.read_csv("gender_submission.csv")
     y = np.array(dataset['Survived'])
     y = y.reshape((y.size, 1))
