@@ -41,7 +41,7 @@ def load_train_sex_pclass_age():
 def load_train_feature(feature):
     dataset = pd.read_csv("train.csv")
     m = len(dataset)
-    feature = np.array(dataset[feature])
+    feature = np.array(dataset[feature], dtype=np.float32)
 
     # if the feature is Sex
     if (feature == "Sex"):
@@ -69,9 +69,6 @@ def load_train_feature(feature):
         feature = (feature - feature.mean()) / feature.std()
 
     return feature
-
-
-
 
 
 
