@@ -1,0 +1,8 @@
+Features set, accuracy
+Pclass, Sex, 	100.0
+Pclass, Sex, Age, 	88.03827751196172
+Pclass, Age, 	61.004784688995215
+Sex, Age, 	100.0
+Sex, Embarked, 	100.0
+Sex, Embarked, Age, 	100.0
+Sex, Embarked, Fare, 	63.63636363636363
