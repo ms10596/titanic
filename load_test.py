@@ -2,39 +2,50 @@ import pandas as pd
 import numpy as np
 
 
-def load_test_pclass_age():
+def load_test(features):
     dataset = pd.read_csv("test.csv")
     m = len(dataset)
-    x = np.array([np.ones(m, )], dtype=np.float32)
-    dataset['Pclass'] = (dataset['Pclass'] - dataset['Pclass'].mean()) / dataset['Pclass'].std()
-    p_class = np.array(dataset['Pclass'], dtype=np.float32)
-    sex = np.array(dataset['Sex'])
-    for i in range(len(sex)):
-        sex[i] = 1 if sex[i] == 'male' else 0
-    x = np.stack((x[0], p_class, sex))
+    features_data = []
+    bias = np.array([np.ones(m, )])
+    features_data.append(bias)
+    for i in range(len(features)):
+        features_data.append(load_test_feature(features[i]))
 
+    x = np.vstack(features_data)
     dataset = pd.read_csv("gender_submission.csv")
     y = np.array(dataset['Survived'])
     y = y.reshape((y.size, 1))
     return x, y, dataset['PassengerId']
 
-def load_test_sex_pclass_age():
+
+def load_test_feature(feature_name):
     dataset = pd.read_csv("test.csv")
     m = len(dataset)
-    x = np.array([np.ones(m, )], dtype=np.float32)
-    dataset['Pclass'] = (dataset['Pclass'] - dataset['Pclass'].mean()) / dataset['Pclass'].std()
-    p_class = np.array(dataset['Pclass'], dtype=np.float32)
-    sex = np.array(dataset['Sex'])
-    for i in range(len(sex)):
-        sex[i] = 1 if sex[i] == 'male' else 0
-    ages = np.array(dataset['Age'])
-    for i in range(m):
-        if np.isnan(ages[i]):
-            ages[i] = np.nanmean(ages)
-    ages = (ages - ages.mean()) / ages.std()
-    x = np.stack((x[0], p_class, sex, ages))
+    feature = np.array(dataset[feature_name])
 
-    dataset = pd.read_csv("gender_submission.csv")
-    y = np.array(dataset['Survived'])
-    y = y.reshape((y.size, 1))
-    return x, y, dataset['PassengerId']
+    # if the feature is Sex
+    if (feature_name == "Sex"):
+        for i in range(len(feature)):
+            feature[i] = 1 if feature[i] == 'male' else 0
+
+    # if  feature is Age
+    if (feature_name == "Age"):
+        for i in range(m):
+            if np.isnan(feature[i]):
+                feature[i] = np.nanmean(feature)
+
+    # if feature is Embarked
+    if (feature_name == "Embarked"):
+        for i in range(len(feature)):
+            if (feature[i] == 'C'):
+                feature[i] = 1
+            elif (feature[i] == 'S'):
+                feature[i] = 2
+            else:
+                feature[i] = 3
+
+    # feature scaling
+    if (feature_name != "Sex"):
+        feature = (feature - feature.mean()) / feature.std()
+
+    return feature

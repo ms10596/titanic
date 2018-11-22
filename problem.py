@@ -1,20 +1,19 @@
-
 import numpy as np
 from logistic_regression import logistic_regression, predict
-from load_train import load_train_pclass_sex
-from load_test import load_test_pclass_age
+from load_train import load_train
+from load_test import load_test
 from calculations import accuracy
 
 if __name__ == '__main__':
-    x, y = load_train_pclass_sex()
+    features = ["Pclass", "Sex"]
+    x, y = load_train(features)
     theta = np.zeros((x.shape[0], 1))
     theta = logistic_regression(x.transpose(), y, theta, 0.1, 500)
-    # print(theta)
-    x_test, y_test, ids = load_test_pclass_age()
-    # print(ids)
+    x_test, y_test, ids = load_test(features)
     y_predict = predict(x_test, theta)
+    accuracy = accuracy(y_predict, y_test)
 
-    print(accuracy(y_predict, y_test))
+    print(accuracy)
     f = open("ans.csv", 'w')
     f.write("PassengerId,Survived\n")
     for i in range(418):
@@ -24,3 +23,7 @@ if __name__ == '__main__':
         f.write('\n')
     f.close()
 
+    f = open("features.txt", "a")
+    for i in range(len(features)):
+        f.write(features[i] + ", ")
+    f.write("\t" + str(accuracy) + "\n")
