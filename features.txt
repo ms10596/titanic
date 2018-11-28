@@ -6,3 +6,4 @@ Sex, Age, 	100.0
 Sex, Embarked, 	100.0
 Sex, Embarked, Age, 	100.0
 Sex, Embarked, Fare, 	63.63636363636363
+Pclass, Sex, 	100.0

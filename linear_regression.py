@@ -14,3 +14,5 @@ def linear_regression(x, y, theta, alpha, num_iters):
         theta = theta - (alpha / y.size) * dot((dot(x, theta) - y).transpose(), x)
         # print(theta, mse(x, y, theta))
     return theta
+
+

@@ -1,26 +1,27 @@
-import pandas as pd
 import numpy as np
-import math
+import pandas as pd
 
 
-def load_train(features):
-    dataset = pd.read_csv("train.csv")
+def load(features, file_name):
+    dataset = pd.read_csv(file_name)
     m = len(dataset)
     features_data = []
     bias = np.array([np.ones(m, )])
     features_data.append(bias)
     for i in range(len(features)):
-        features_data.append(load_train_feature(features[i]))
+        features_data.append(load_feature(features[i], file_name))
 
     x = np.vstack(features_data)
+    if file_name == "test.csv":
+        return x
     y = np.array(dataset['Survived'])
     y = y.reshape((891, 1))
     return x, y
 
 
 # load specific feature from the training dataset
-def load_train_feature(feature_name):
-    dataset = pd.read_csv("train.csv")
+def load_feature(feature_name, file_name):
+    dataset = pd.read_csv(file_name)
     m = len(dataset)
     feature = np.array(dataset[feature_name])
 
@@ -46,11 +47,7 @@ def load_train_feature(feature_name):
                 feature[i] = 3
 
     # feature scaling
-    if (feature_name != "Sex"):
+    if (feature_name != "Sex" and feature_name != "PassengerId"):
         feature = (feature - feature.mean()) / feature.std()
 
     return feature
-
-
-if __name__ == '__main__':
-    load_train()
