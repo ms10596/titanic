@@ -3,11 +3,11 @@ from load import load
 features = ['Pclass', 'Sex', 'Age', 'SibSp', 'Parch', 'Ticket', 'Fare', 'Cabin', 'Embarked']
 x_train, y_train = load(features, "train.csv")
 x_test = load(features, "test.csv")
-
+print(x_train.T[0])
 # clf = tree.DecisionTreeClassifier()
 # clf.fit(x_train, y_train)
 # y_predict = clf.predict(x_test)
-# print(y_hat)
+# print(y_predict)
 # f = open("ans.csv", 'w')
 # f.write("PassengerId,Survived\n")
 # for i in range(418):

@@ -12,7 +12,7 @@ if __name__ == '__main__':
     y_predict = predict(x_test, theta)
     ids = load_feature("PassengerId", "test.csv")
     # print(ids)
-    f = open("ans.csv", 'w')
+    f = open("data/ans.csv", 'w')
     f.write("PassengerId,Survived\n")
     for i in range(418):
         f.write(str(ids[i]))

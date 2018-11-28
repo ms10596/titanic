@@ -3,7 +3,7 @@ import pandas as pd
 
 
 def load(features, file_name):
-    dataset = pd.read_csv(file_name)
+    dataset = pd.read_csv("data/"+file_name)
     m = len(dataset)
     features_data = []
     bias = np.array([np.ones(m, )])
@@ -47,7 +47,7 @@ def load_feature(feature_name, file_name):
                 feature[i] = 3
 
     # feature scaling
-    if (feature_name != "Sex" and feature_name != "PassengerId"):
-        feature = (feature - feature.mean()) / feature.std()
+    # if (feature_name != "Sex" and feature_name != "PassengerId"):
+    #     feature = (feature - feature.mean()) / feature.std()
 
     return feature
