@@ -34,10 +34,11 @@ def load_feature(feature_name, file_name):
 
     # if  feature is Age
     if (feature_name == "Age"):
+        avg = np.nanmean(feature)
         for i in range(m):
             if np.isnan(feature[i]):
-                feature[i] = np.nanmean(feature)
-
+                feature[i] = avg
+            feature[i] = 1 if feature[i] > avg else 0
 
     # if feature is Embarked
     if (feature_name == "Embarked"):
@@ -60,7 +61,6 @@ def load_feature(feature_name, file_name):
         avg = np.mean(feature)
         for i in range(len(feature)):
             feature[i] = 1 if feature[i] > avg else 0
-
 
     # feature scaling
     # if (feature_name != "Sex" and feature_name != "PassengerId"):
