@@ -3,7 +3,8 @@ import pandas as pd
 
 
 def load(features, file_name):
-    dataset = pd.read_csv("data/"+file_name)
+    dataset = pd.read_csv(file_name)
+
     m = len(dataset)
     features_data = []
     bias = np.array([np.ones(m, )])
@@ -21,6 +22,7 @@ def load(features, file_name):
 
 # load specific feature from the training dataset
 def load_feature(feature_name, file_name):
+    # print(file_name)
     dataset = pd.read_csv(file_name)
     m = len(dataset)
     feature = np.array(dataset[feature_name])
@@ -36,6 +38,7 @@ def load_feature(feature_name, file_name):
             if np.isnan(feature[i]):
                 feature[i] = np.nanmean(feature)
 
+
     # if feature is Embarked
     if (feature_name == "Embarked"):
         for i in range(len(feature)):
@@ -45,6 +48,19 @@ def load_feature(feature_name, file_name):
                 feature[i] = 2
             else:
                 feature[i] = 3
+    if feature_name == "Cabin":
+        visited = []
+        for i in range(len(feature)):
+            if feature[i] in visited:
+                feature[i] = visited.index(feature[i])
+            else:
+                visited.append(feature[i])
+                feature[i] = visited.index(feature[i])
+    if feature_name == "Fare":
+        avg = np.mean(feature)
+        for i in range(len(feature)):
+            feature[i] = 1 if feature[i] > avg else 0
+
 
     # feature scaling
     # if (feature_name != "Sex" and feature_name != "PassengerId"):

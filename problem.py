@@ -10,7 +10,7 @@ if __name__ == '__main__':
     theta = logistic_regression(x.transpose(), y, theta, 0.1, 500)
     x_test = load(features, "test.csv")
     y_predict = predict(x_test, theta)
-    ids = load_feature("PassengerId", "test.csv")
+    ids = load_feature("PassengerId", "data/test.csv")
     # print(ids)
     f = open("data/ans.csv", 'w')
     f.write("PassengerId,Survived\n")
