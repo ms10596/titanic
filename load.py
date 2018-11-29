@@ -13,11 +13,11 @@ def load(features, file_name):
         features_data.append(load_feature(features[i], file_name))
 
     x = np.vstack(features_data)
-    if file_name == "test.csv":
-        return x
+    if file_name == "data/test.csv":
+        return x.T
     y = np.array(dataset['Survived'])
     y = y.reshape((891, 1))
-    return x, y
+    return x.T, y
 
 
 # load specific feature from the training dataset
